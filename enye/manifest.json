@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Copy Enye ñ/Ñ ",
+  "version": "1.0",
+  "description": "Quickly copy ñ or Ñ to clipboard. by Paul Mendoza",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": ["clipboardWrite"]
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Class Schedule</title>
+  <style>
+    :root {
+      --bg-color: #f0f9ff;
+      --text-color: #1e3a8a;
+      --card-bg: #e0f2fe;
+      --header-bg: #bae6fd;
+      --link-color: #2563eb;
+      --highlight: #3b82f6;
+      --button-bg: #2563eb;
+    }
+
+    body.dark {
+      --bg-color: #1e293b;
+      --text-color: #f8fafc;
+      --card-bg: #334155;
+      --header-bg: #475569;
+      --link-color: #60a5fa;
+      --highlight: #facc15;
+      --button-bg: #475569;
+    }
+
+    body {
+      font-family: sans-serif;
+      width: 330px;
+      padding: 10px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      text-align: center;
+      margin-bottom: 5px;
+      color: var(--highlight);
+    }
+
+    .toggle-btn {
+      display: block;
+      margin: 0 auto 15px;
+      padding: 8px 14px;
+      background-color: var(--button-bg);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 0;
+      font-weight: bold;
+      color: #dc2626;
+    }
+
+    .day-header {
+      background-color: var(--header-bg);
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 1.1em;
+      color: var(--text-color);
+    }
+
+    .class-block {
+      padding: 10px;
+      margin-top: 8px;
+      border-left: 6px solid;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    a {
+      display: block;
+      color: var(--link-color);
+      text-decoration: none;
+      margin-top: 4px;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Unique colorful backgrounds for light mode */
+    .programming { background-color: #85c5f0; border-left-color: #3b82f6; }    /* Blue */
+    .network { background-color: #f3eb97; border-left-color: #facc15; }        /* Yellow */
+    .os { background-color: #f7a698; border-left-color: #e11d48; }             /* Rose */
+    .se1 { background-color: #c7e78a; border-left-color: #84cc16; }            /* Lime */
+    .parallel { background-color: #c1b7f0; border-left-color: #8b5cf6; }       /* Purple */
+
+    /* Override for dark mode */
+    body.dark .class-block {
+      background-color: var(--card-bg) !important;
+      border-left-color: var(--highlight) !important;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-btn" id="toggleDark">🌙 Dark Mode</button>
+  <h1>CLASS SCHEDULE</h1>
+  <p>❤️ Paul Mendoza ❤️</p>
+
+  <div class="day-header">📅 MWF (Mon/Wed/Fri)</div>
+
+  <div class="class-block programming">
+    💻 <b>Programming Languages</b><br>
+    👨‍⚖️ Prof Reyes<br>
+    🕖 7:00 PM – 8:00 PM<br>
+    📩 Invite Code: nvotrxwm<br>
+    <a href="https://meet.google.com/jkk-vryn-zpa" target="_blank">• Join Meet</a>
+    <a href="https://classroom.google.com/c/Nzg5Mzg5Mzk5OTE0" target="_blank">• Google Classroom</a>
+  </div>
+
+  <div class="class-block network">
+    🌐 <b>Network & Communication</b><br>
+    👨‍⚖ Prof. Raposas<br>
+    🕗 8:00 PM – 9:00 PM<br>
+    📩 Invite Code: k7hyphaz<br>
+    <a href="https://meet.google.com/ghq-fopu-tkg" target="_blank">• Join Meet</a>
+    <a href="https://classroom.google.com/c/NzcwNzA0MTk0NTQ5" target="_blank">• Google Classroom</a>
+  </div>
+
+  <div class="class-block os">
+    🖥️ <b>Operating Systems</b><br>
+    👨‍⚖ Dr. Mendez<br>
+    🕘 9:00 PM – 10:00 PM<br>
+    📩 Invite Code: macdas6f<br>
+    <a href="https://meet.google.com/gsb-mggv-etp" target="_blank">• Join Meet</a>
+    <a href="https://drive.google.com/drive/u/0/folders/19Ne-LgH8JzdpjTo9CxNAkfS_j_jaieHv" target="_blank"> • Google Drive</a>
+    <a href="https://classroom.google.com/c/NzkwMjk3MTE5MTc2" target="_blank"> • Google Classroom</a>
+  </div>
+
+  <div class="day-header">📅 TTH (Tue/Thu)</div>
+
+  <div class="class-block se1">
+    🛠️ <b>Software Engineering 1</b><br>
+    👨‍⚖ Prof Carreon<br>
+    🕖 7:00 PM – 8:30 PM<br>
+    📩 Invite Code: f2s2jmwp<br>
+    <a href="https://classroom.google.com/c/NzgzMjQ4NDE5Nzg3" target="_blank">• Google Classroom</a>
+  </div>
+
+  <div class="class-block parallel">
+    ⚙️ <b>Parallel & Distributed Computing</b><br>
+    👨‍⚖ Prof Carreon<br>
+    🕣 8:30 PM – 10:00 PM<br>
+    📩 Invite Code: d5stuwqn<br>
+    <a href="https://classroom.google.com/c/Nzg5MjkyOTI3MTE4" target="_blank">• Google Classroom</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

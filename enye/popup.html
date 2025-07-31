@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Copy ñ / Ñ</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      width: 220px;
+      color: #fff;
+      text-align: center;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      
+      /* Graph paper style background */
+      background-color: #000;
+      background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 18px;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      text-shadow: 1px 1px 2px #00000033;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      box-shadow: 0 6px 16px rgba(255, 75, 43, 0.5);
+    }
+
+    .copy-label {
+      font-size: 13px;
+      color: #cfd8dc;
+      height: 16px;
+      margin-bottom: 6px;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .copy-label.show {
+      opacity: 1;
+      animation: fadeOut 1.8s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <img src="icon.png" alt="Logo">
+
+  <h1>Copy ñ / Ñ</h1>
+
+  <button id="copy-n">Copy ñ</button>
+  <div id="label-n" class="copy-label">Copied ñ!</div>
+
+  <button id="copy-N">Copy Ñ</button>
+  <div id="label-N" class="copy-label">Copied Ñ!</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

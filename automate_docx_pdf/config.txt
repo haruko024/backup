@@ -1,0 +1,4 @@
+template_name = NAYOtemp.docx @
+context = 
+"name": name, 
+"date": date

@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Class Schedule by Paul Mendoza",
+  "version": "1.0",
+  "description": "View your class schedule and join meetings easily.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "64": "icon.png"
+    }
+  },
+  "permissions": []
+}

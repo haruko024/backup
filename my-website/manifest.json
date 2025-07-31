@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Visit My Website",
+  "version": "1.0",
+  "description": "Click the extension to visit my website. By Paul Mendoza",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icon.png"
+    }
+  }
+}
