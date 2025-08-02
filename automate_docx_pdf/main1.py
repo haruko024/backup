@@ -56,7 +56,7 @@ def docxonly():
     speak(f"{len(names)} name list found!. Please wait for a while")
     speak("Generating docx.")
     for index, name in enumerate(names):
-        doc = DocxTemplate(temp)
+        doc = DocxTemplate(f"templates/{temp}")
         context = eval("{" + cont + "}")
         filename = f"{name}_output.docx" if index == 0 else f"{name}_output{index}.docx"
         doc.render(context)
@@ -106,6 +106,7 @@ def merge_docx():
 
     merged_path = os.path.join("output/merged", "merged.docx")
     composer.save(merged_path)
+    print(Fore.CYAN + f"⭕ Generated merged.docx")
     speak("DOCX files merged successfully.")
     speak("Converting merged files..")
 
@@ -118,6 +119,7 @@ def merge_docx_pdf():
         "libreoffice", "--headless", "--convert-to", "pdf", "--outdir", merged_pdf_output,
         merged_docx_path
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    print(Fore.CYAN + f"⭕ Generated merged.pdf")
     speak("Merged DOCX converted to PDF.")
 
 def something():
@@ -128,21 +130,25 @@ def something():
         docx_and_pdf()
         merge_docx_pdf()
         speak("All tasks completed successfully.")
-        speak("Captured. Complete!")
+        speak("Thanks for run this code. Please Subscribe my Github Account and Visit my Website")
+        print("Github : https://github.com/paulmendoza24")
+        print("Website : https://paulmendoza24.github.io/index/")
+        speak("Remember!: With great power! comes great responsibility.")
     else:
         speak("kupal!. Wait for a while..")
         docx_and_pdf()
         merge_docx_pdf()
         speak("All tasks completed successfully.")
-        speak("Captured. Complete!")
         speak("Thanks for run this code. Please Subscribe my Github Account and Visit my Website")
         print("Github : https://github.com/paulmendoza24")
         print("Website : https://paulmendoza24.github.io/index/")
+        speak("Remember!: With great power! comes great responsibility.")
+        
 
 def ai_menu():
     banner = pyfiglet.figlet_format("AI DOC MAKER")
     print(Fore.CYAN + banner + Fore.LIGHTYELLOW_EX +"\t\t\t BY PAUL MENDOZA")
-    speak("Hello! I am your document assistant. By Paul Mendoza. What would you like me to do?. ")
+    speak("Hello! I am your document assistant. What would you like me to do sir Paul?. ")
     while True:
         speak("You can say: generate docx, convert to PDF, generate both, merge files, merge docx, full automation, or exit.")
         command = listen()

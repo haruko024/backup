@@ -1,24 +1,10 @@
-Paul Mendoza
-Jerald Mendoza
-Diana Mendoza
-Angelica Mendoza
-Sophia Williams
-Jackson Smith
-Olivia Johnson
-Liam Brown
-Emma Jones
-Noah Miller
-Ava Davis
-Lucas Garcia
-Isabella Martinez
-Elijah Rodriguez
-Mia Wilson
-Mateo Anderson
-Charlotte Taylor
-Logan Thomas
-Amelia Hernandez
-James Moore
-Harper Martin
-Benjamin Jackson
-Evelyn Thompson
-Henry White
+Dennis MacAlistair Ritchie
+Brian Wilson Kernighan
+James Arthur Gosling
+Guido van Rossum
+Bjarne Stroustrup
+Timothy John Berners-Lee
+Linus Benedict Torvalds
+Ken Thompson
+Grace Brewster Murray Hopper
+Donald Ervin Knuth
