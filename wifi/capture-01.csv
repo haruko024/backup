@@ -1,0 +1,7 @@
+
+BSSID, First time seen, Last time seen, channel, Speed, Privacy, Cipher, Authentication, Power, # beacons, # IV, LAN IP, ID-length, ESSID, Key
+BA:CE:87:64:EB:E6, 2025-08-03 00:58:31, 2025-08-03 00:58:51,  1, 180, WPA2, CCMP, PSK, -64,      196,      978,   0.  0.  0.  0,  16, vivo V40 Lite 5G, 
+
+Station MAC, First time seen, Last time seen, Power, # packets, BSSID, Probed ESSIDs
+BE:2E:28:96:01:2C, 2025-08-03 00:58:31, 2025-08-03 00:58:51, -58,      983, BA:CE:87:64:EB:E6,vivo V40 Lite 5G
+
