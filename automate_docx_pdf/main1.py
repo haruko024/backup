@@ -46,7 +46,7 @@ file = open("names.txt", "r", encoding="utf-8")
 names = [line.strip() for line in file if line.strip()]
 date = datetime.now().strftime("%B %d, %Y")
 
-file2 = open("config.txt", "r", encoding="utf-8").read().split('@')
+file2 = open("config.txt", "r", encoding="utf-8").read().split('<cut>')
 temp = file2[0].split("=")[1].strip()
 cont = file2[1].split("=")[1].strip()
 
@@ -129,20 +129,22 @@ def something():
         speak("kupal!. Wait for a while..")
         docx_and_pdf()
         merge_docx_pdf()
-        speak("All tasks completed successfully.")
-        speak("Thanks for run this code. Please Subscribe my Github Account and Visit my Website")
+        speak("All tasks completed.")
+        speak("Thanks for run this code. Please Subscribe my github account and Visit my Website")
         print("Github : https://github.com/paulmendoza24")
         print("Website : https://paulmendoza24.github.io/index/")
         speak("Remember!: With great power! comes great responsibility.")
+        speak("Gwapo mo! Paul!")
     else:
         speak("kupal!. Wait for a while..")
         docx_and_pdf()
         merge_docx_pdf()
-        speak("All tasks completed successfully.")
-        speak("Thanks for run this code. Please Subscribe my Github Account and Visit my Website")
+        speak("All tasks completed.")
+        speak("Thanks for run this code. Please Subscribe my github account and Visit my Website")
         print("Github : https://github.com/paulmendoza24")
         print("Website : https://paulmendoza24.github.io/index/")
         speak("Remember!: With great power! comes great responsibility.")
+        speak("Gwapo mo! Paul!")
         
 
 def ai_menu():
@@ -173,30 +175,72 @@ def ai_menu():
         else:
             speak("Sorry, I didn't catch that. Please try again.")
 
-if __name__ == "__main__":
-    input_pass1 = "falcon"
-    input_pass2 = "wizard"
-    input_pass3 = "paul24"
-
-    max_attempts = 3
-    attempts = 0
-
-    while attempts < max_attempts:
-        print(Fore.YELLOW + f"\nAttempt {attempts + 1} of {max_attempts}")
-        pass1 = getpass("Enter 1st Password: ")
-        pass2 = getpass("Enter 2nd Password: ")
-        pass3 = getpass("Enter 3rd Password: ")
-
-        if pass1 == input_pass1 and pass2 == input_pass2 and pass3 == input_pass3:
-            print(Fore.GREEN + "[ACCESS GRANTED]")
-            os.makedirs("output/docx", exist_ok=True)
-            os.makedirs("output/pdfs", exist_ok=True)
-            os.makedirs("output/merged", exist_ok=True)
-            ai_menu()
+def typer():
+    banner = pyfiglet.figlet_format("AI DOC MAKER")
+    print(Fore.CYAN + banner + Fore.LIGHTYELLOW_EX +"\t\t\t BY PAUL MENDOZA (Type)")
+    while True:
+        print("""
+    OPTIONS:
+[1] Generate Docx Only
+[2] Convert All Docx to PDF
+[3] Generate Docx + PDF
+[4] Merge All Docx and Convert to PDF
+[5] Merge All Docx Only
+[0] Complete Automate
+[q] Exit""")
+        command = input("Option >> ")
+        if command is None:
+            continue
+        elif command == "1":
+            docxonly()
+        elif command == "2":
+            generatepdf()
+        elif command == "3":
+            docx_and_pdf()
+        elif command == "4":
+            merge_docx_pdf()
+        elif command == "5":
+            merge_docx()
+        elif command == "0":
+            docx_and_pdf()
+            merge_docx_pdf()
+            speak("All tasks completed.")
+            speak("Thanks for run this code. Please Subscribe my github account and Visit my Website")
+            print("Github : https://github.com/paulmendoza24")
+            print("Website : https://paulmendoza24.github.io/index/")
+            speak("Remember!: With great power! comes great responsibility.")
+            speak("Gwapo mo! Paul!")
+            break
+        elif command == 'q':
+            print("Goodbye!")
             break
         else:
-            print(Fore.RED + "[ACCESS DENIED] Incorrect password(s). Try again.")
-            attempts += 1
+            speak("Sorry, Invalid command. Please try again.")
 
-    if attempts == max_attempts:
-        print(Fore.RED + "\n[LOCKED OUT] Too many incorrect attempts. Exiting.")
+if __name__ == "__main__":
+        
+        while True:
+            print("Options:")
+            print("[1] Speak")
+            print("[2] Type")
+            command = int(input(">> "))
+            
+            if command == 1:
+                print(Fore.GREEN + "[ACCESS GRANTED] (SPEAK)")
+                os.makedirs("output/docx", exist_ok=True)
+                os.makedirs("output/pdfs", exist_ok=True)
+                os.makedirs("output/merged", exist_ok=True)
+                ai_menu()
+                break
+            elif command == 2:
+                print(Fore.GREEN + "[ACCESS GRANTED] (TYPE)")
+                os.makedirs("output/docx", exist_ok=True)
+                os.makedirs("output/pdfs", exist_ok=True)
+                os.makedirs("output/merged", exist_ok=True)
+                typer()
+                break
+            else:
+                print("Invalid Command.")
+            
+            
+            

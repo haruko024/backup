@@ -1,0 +1,7 @@
+sudo apt update
+sudo apt install --reinstall virtualbox-dkms virtualbox 
+sudo modprobe vboxdrv
+sudo modprobe vboxnetflt
+sudo modprobe vboxnetadp
+
+lsmod | grep vbox

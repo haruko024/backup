@@ -1,4 +1,7 @@
-template_name = NAYOtemp.docx @
+template_name = NAYOtemp.docx
+
+<cut>
+
 context = 
 "name": name, 
 "date": date
