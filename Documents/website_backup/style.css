@@ -1,0 +1,273 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
+}
+
+.hero {
+  background: linear-gradient(to right, #ffb6c1, #ffe4e1);
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.btn {
+  padding: 10px 25px;
+  background: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #ff1493;
+}
+
+.gallery {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.gallery h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.about {
+  padding: 60px 20px;
+  background-color: #f5acc4;
+  text-align: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.modal-box {
+  display: flex;
+  gap: 30px;
+  max-width: 90%;
+  margin: auto;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #fff;
+}
+
+.modal-caption {
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  padding: 20px;
+  border-radius: 20px;
+  color: #4b064f;
+  font-size: 1.1rem;
+  max-width: 300px;
+  animation: slideIn 0.4s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-caption strong {
+  font-size: 1.2rem;
+  color: #78003c;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 100px;
+  right: 35px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal-box .next {
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: color 0.3s;
+}
+
+.modal-box .next:hover {
+  color: #ff69b4;
+}
+
+.preview-thumbnails {
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.preview-thumbnails img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.preview-thumbnails img:hover {
+  transform: scale(1.1);
+  outline: 2px solid #fff;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f3c7e0;
+}
+
+/* Dark Mode */
+body.dark {
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+}
+
+body.dark .hero {
+  background: linear-gradient(to right, #4b0082, #1e1e2f);
+}
+
+body.dark .btn {
+  background: #fff;
+  color: #4b0082;
+}
+
+body.dark .about {
+  background-color: #2a2a3d;
+}
+
+body.dark .modal-caption {
+  background: linear-gradient(135deg, #2c003e, #5e1c8d);
+  color: #f9d6ff;
+  box-shadow: 0 12px 25px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .modal-caption strong {
+  color: #ffadff;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.theme-toggle i {
+  font-size: 30px;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+body.dark .theme-toggle i {
+  color: #fff;
+}
+
+body.dark footer p {
+  color: black;
+}
+
+.theme-toggle i:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .modal-box {
+    flex-direction: column;
+  }
+
+  .modal-box .next {
+    right: 10px;
+    top: auto;
+    bottom: 20px;
+    transform: none;
+  }
+
+  .modal-caption {
+    max-width: 90%;
+    text-align: center;
+  }
+}

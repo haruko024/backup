@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <!-- Critical viewport meta for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Cozy Kettle • Sweet Sips & Cozy Vibes</title>
+    <meta name="description" content="The Cozy Kettle — a cute, pastel, girl‑style coffee shop..." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Variables & Global Resets */
+        :root {
+            --pink: #ffc6d9;
+            --rose: #ff9fbc;
+            --blush: #ff7aa2;
+            --lilac: #c9b5ff;
+            --mint: #b9f5d0;
+            --cream: #fff6f9;
+            --brown: #5b3b2e;
+            --choco: #2d1a14;
+            --ink: #2b2b2b;
+            --shadow: 0 10px 30px rgba(255, 122, 162, .25);
+            --radius: 1.4rem;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            color: var(--ink);
+            background: linear-gradient(180deg, var(--cream), #fff);
+            font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        /* Header & Nav */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: saturate(180%) blur(10px);
+            background: rgba(255, 246, 249, .75);
+            border-bottom: 1px solid rgba(255, 122, 162, .15);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .8rem 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            font-weight: 700;
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        nav a {
+            padding: .5rem .8rem;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            background: linear-gradient(90deg, var(--pink), var(--lilac));
+            color: #221;
+            box-shadow: var(--shadow);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 0 3rem;
+        }
+
+        .bg-bubble {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: .4;
+            animation: float 16s ease-in-out infinite;
+        }
+
+        .b1 {
+            width: 360px;
+            height: 360px;
+            background: var(--pink);
+            left: -120px;
+            top: -120px;
+        }
+
+        .b2 {
+            width: 280px;
+            height: 280px;
+            background: var(--lilac);
+            right: -100px;
+            top: 40px;
+            animation-duration: 18s;
+        }
+
+        .b3 {
+            width: 240px;
+            height: 240px;
+            background: var(--mint);
+            left: 20%;
+            bottom: -80px;
+            animation-duration: 22s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .eyebrow {
+            font-size: .85rem;
+            font-weight: 600;
+            background: #fff;
+            border: 1px dashed var(--rose);
+            border-radius: 999px;
+            padding: .35rem .8rem;
+            display: inline-block;
+        }
+
+        .title {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin: .8rem 0 1rem;
+        }
+
+        .lead {
+            font-size: 1.05rem;
+            max-width: 48ch;
+        }
+
+        .cta {
+            display: flex;
+            gap: .8rem;
+            margin-top: 1.4rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .9rem 1.2rem;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .25s transform .25s box-shadow;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--rose), var(--blush));
+            color: #fff;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--rose);
+            color: var(--choco);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-card,
+        .cup,
+        .mug,
+        .handle,
+        .coffee,
+        .steam-line,
+        .heart {
+            /* If reinstating animation, add styles here */
+        }
+
+        /* Menu Cards */
+        .section-title {
+            font-family: "Playfair Display", serif;
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 70px;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--rose), var(--lilac));
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .menu-grid {
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        }
+
+        .card {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 40px rgba(255, 122, 162, .35);
+        }
+
+        .chip {
+            font-size: .75rem;
+            font-weight: 700;
+            background: rgba(255, 159, 188, .18);
+            border-radius: 999px;
+            padding: .25rem .6rem;
+        }
+
+        .price {
+            font-weight: 800;
+            color: var(--choco);
+        }
+
+        /* Gallery */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .slides {
+            display: flex;
+            width: 100%;
+            transition: transform .6s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .slides img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: transform .8s ease;
+        }
+
+        .slides img.scale-up {
+            transform: scale(1.05);
+        }
+
+        .dots {
+            display: flex;
+            gap: .5rem;
+            justify-content: center;
+            margin-top: .8rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .15);
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: linear-gradient(90deg, var(--rose), var(--lilac));
+        }
+
+        /* About & Badges */
+        .about {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem;
+            margin-top: .8rem;
+        }
+
+        .badge {
+            padding: .5rem .8rem;
+            background: linear-gradient(90deg, var(--mint), var(--pink));
+            border-radius: 999px;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+        }
+
+        /* Testimonials */
+        .testi {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+
+        .quote {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 1rem 1.2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .quote::before {
+            content: "“";
+            position: absolute;
+            top: -30px;
+            left: 12px;
+            font-size: 5rem;
+            color: rgba(255, 122, 162, .2);
+        }
+
+        /* Contact Form */
+        form {
+            display: grid;
+            gap: .8rem;
+            margin-top: .8rem;
+        }
+
+        .stack {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .8rem;
+        }
+
+        input,
+        textarea {
+            padding: .9rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(0, 0, 0, .08);
+            background: #fff;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .notice {
+            font-size: .85rem;
+            opacity: .7;
+            margin-top: .5rem;
+        }
+
+        /* Footer & To-Top */
+        footer {
+            padding: 2rem 0 4rem;
+            background: linear-gradient(180deg, #fff, var(--cream));
+            margin-top: 2rem;
+        }
+
+        .foot {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .social {
+            display: flex;
+            gap: .6rem;
+        }
+
+        .pill {
+            padding: .4rem .8rem;
+            background: #fff;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 0, 0, .06);
+            box-shadow: var(--shadow);
+        }
+
+        .toTop {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--rose), var(--lilac));
+            color: #fff;
+            font-weight: 900;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transform: translateY(120%);
+            transition: transform .25s ease;
+        }
+
+        .toTop.show {
+            transform: translateY(0);
+        }
+
+        /* Reveal Animations & JS tweaks remain identical to your code */
+
+        /* MOBILE-FIRST Media Query for screens <= 600px */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 3rem 0 2rem;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .lead {
+                font-size: .95rem;
+            }
+
+            .cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .carousel img {
+                height: 220px;
+            }
+
+            iframe {
+                width: 100% !important;
+                height: 220px !important;
+            }
+
+            .stack {
+                grid-template-columns: 1fr;
+            }
+
+            .about,
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: .8rem;
+            }
+
+            .brand img {
+                width: 36px;
+                height: 36px;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 56px;
+                right: .5rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .testi {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+            .slides img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <img src="images/image1.png" alt="logo"><span>The Cozy Kettle</span>
+            </div>
+            <button class="menu-btn" id="menuBtn">☰ Menu</button>
+            <nav>
+                <ul id="navList">
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div class="bg-bubble b1"></div>
+            <div class="bg-bubble b2"></div>
+            <div class="bg-bubble b3"></div>
+            <div class="container hero-grid">
+                <div>
+                    <span class="eyebrow">Sweet sips • Cozy vibes</span>
+                    <h1 class="title">A cute corner for your daily dose of joy</h1>
+                    <p class="lead">From silky lattes to dreamy pastries, The Cozy Kettle is your pastel‑perfect
+                        hideaway. Girl‑style aesthetics, heart‑made drinks, and a sprinkle of sparkle ✨</p>
+                    <div class="cta">
+                        <a class="btn btn-primary" href="#menu">Order Favorites</a>
+                        <a class="btn btn-outline" href="#about">Visit Us</a>
+                    </div>
+                </div>
+                <div>
+                    <img src="images/logo.png" alt="chibi_logo">
+                </div>
+            </div>
+        </section>
+
+        <!-- MENU -->
+        <section id="menu">
+            <div class="container">
+                <h2 class="section-title">Signature Sips</h2>
+                <div class="grid menu-grid reveal">
+                    <article class="card">
+                        <img src="images/strawberry.png"
+                            alt="Strawberry latte" loading="lazy">
+                        <h3>Strawberry Cloud Latte <span class="chip">New</span></h3>
+                        <p>Espresso topped with strawberry cold foam and a hint of vanilla.</p>
+                        <p class="price">₱165</p>
+                    </article>
+                    <article class="card">
+                        <img src="images/blush.png"
+                            alt="Iced matcha latte" loading="lazy">
+                        <h3>Blush Matcha</h3>
+                        <p>Ceremonial matcha, oat milk, and rose syrup over ice.</p>
+                        <p class="price">₱180</p>
+                    </article>
+                    <article class="card">
+                        <img src="images/almond.png"
+                            alt="Croissant and coffee" loading="lazy">
+                        <h3>Almond Croissant</h3>
+                        <p>Flaky, buttery layers with a sweet almond center. Perfect pair!</p>
+                        <p class="price">₱95</p>
+                    </article>
+                    <article class="card">
+                        <img src="images/velvet.png"
+                            alt="Hot chocolate with marshmallows" loading="lazy">
+                        <h3>Velvet Cocoa</h3>
+                        <p>Rich dark chocolate, fluffy mallows, cuddle‑approved.</p>
+                        <p class="price">₱150</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section id="gallery">
+            <div class="container">
+                <h2 class="section-title">Pretty Moments</h2>
+                <div class="carousel reveal">
+                    <div class="slides" id="slides">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1200&auto=format&fit=crop"
+                            alt="Pastel coffee bar">
+                        <img src="https://www.foodandwine.com/thmb/CCe2JUHfjCQ44L0YTbCu97ukUzA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Partners-Latte-FT-BLOG0523-09569880de524fe487831d95184495cc.jpg"
+                            alt="Latte art heart">
+                        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=1200&auto=format&fit=crop"
+                            alt="Pink donuts">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop"
+                            alt="Cappuccino with cocoa art">
+                        <img src="https://images.unsplash.com/photo-1521305916504-4a1121188589?q=80&w=1200&auto=format&fit=crop"
+                            alt="Macarons and coffee">
+                    </div>
+                </div>
+                <div class="dots" id="dots" aria-label="Gallery navigation" role="tablist"></div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about">
+            <div class="container about">
+                <div class="reveal">
+                    <h2 class="section-title">Our Story</h2>
+                    <p>Born from best‑friend coffee dates, The Cozy Kettle is a love letter to soft mornings and
+                        sparkling afternoons. We source beans from women‑led farms and bake in small batches daily.</p>
+                    <div class="badges" aria-label="Cafe highlights">
+                        <span class="badge">Women‑led</span>
+                        <span class="badge">Pastel Aesthetic</span>
+                        <span class="badge">Oat & Soy Friendly</span>
+                        <span class="badge">Eco Cups</span>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="card">
+                        <h3>Hours & Location</h3>
+                        <p><strong>Mon–Sat:</strong> 8:00 am–8:00 pm • <strong>Sun:</strong> 9:00 am–6:00 pm</p>
+                        <p>123 Ocean Drive, Pasay, PH</p>
+                        <iframe width="425" height="350"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=120.97836077213289%2C14.530669676772202%2C120.9824699163437%2C14.53374381013186&amp;layer=mapnik"
+                            style="border:1px solid black;"></iframe><br /><small><a
+                                href="https://www.openstreetmap.org/?#map=18/14.532207/120.980415">View Larger
+                                Map</a></small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section>
+            <div class="container">
+                <h2 class="section-title">What Cuties Say</h2>
+                <div class="testi reveal">
+                    <div class="quote">
+                        <p>“The Strawberry Cloud Latte is a hug in a cup. The vibes? Immaculate.”</p>
+                        <p><strong>Michelle</strong> • regular</p>
+                    </div>
+                    <div class="quote">
+                        <p>“Finally a café as cute as my Pinterest board. Staff are absolute sweethearts.”</p>
+                        <p><strong>Montemayor</strong> • student</p>
+                    </div>
+                    <div class="quote">
+                        <p>“Perfect spot for journaling and catching up with friends. 11/10 will sip again.”</p>
+                        <p><strong>Ruby</strong> • teacher</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">Say Hello</h2>
+                <form class="reveal" id="contactForm">
+                    <div class="stack">
+                        <label>
+                            <span class="notice">Name</span>
+                            <input type="text" name="name" placeholder="Your pretty name" required>
+                        </label>
+                        <label>
+                            <span class="notice">Email</span>
+                            <input type="email" name="email" placeholder="you@example.com" required>
+                        </label>
+                    </div>
+                    <label>
+                        <span class="notice">Message</span>
+                        <textarea name="message" placeholder="What's on your mind?"></textarea>
+                    </label>
+                    <button class="btn btn-primary" type="submit">Send Message 💌</button>
+                    <p id="formNote" class="notice" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container foot">
+            <p>© <span id="year"></span> The Cozy Kettle — made with baby ♥.</p>
+            <div class="social">
+                <a class="pill" href="https://www.instagram.com/itsms_jjj" aria-label="Instagram">Instagram</a>
+                <a class="pill" href="https://www.tiktok.com/@namii_cutiie" aria-label="TikTok">TikTok</a>
+                <a class="pill" href="https://web.facebook.com/jona.estrada.ii" aria-label="Facebook">Facebook</a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="toTop" id="toTop" aria-label="Back to top">↑</button>
+
+    <script>
+        // JS logic (unchanged)
+        const menuBtn = document.getElementById('menuBtn');
+        const navList = document.getElementById('navList');
+        menuBtn?.addEventListener('click', () => navList.classList.toggle('show'));
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const id = a.getAttribute('href');
+                const el = document.querySelector(id);
+                if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); navList.classList.remove('show'); }
+            });
+        });
+
+        const slides = document.getElementById('slides'), dotsWrap = document.getElementById('dots');
+        const total = slides.children.length; let index = 0, timer;
+
+        function go(i) {
+            index = (i + total) % total;
+            slides.style.transform = `translateX(-${index * 100}%)`;
+            [...slides.children].forEach((img, di) => {
+                img.classList.toggle('scale-up', di === 0 || di === total - 1);
+            });
+            [...dotsWrap.children].forEach((d, di) => d.classList.toggle('active', di === index));
+        }
+        function buildDots() {
+            for (let i = 0; i < total; i++) {
+                const d = document.createElement('button');
+                d.className = 'dot'; d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                d.addEventListener('click', () => { go(i); restart(); });
+                dotsWrap.appendChild(d);
+            }
+            go(0);
+        }
+        function autoplay() { timer = setInterval(() => go(index + 1), 4000); }
+        function restart() { clearInterval(timer); autoplay(); }
+        buildDots(); autoplay();
+
+        const revealEls = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); } });
+        }, { threshold: .16 });
+        revealEls.forEach(el => io.observe(el));
+
+        const toTop = document.getElementById('toTop');
+        window.addEventListener('scroll', () => {
+            toTop.classList.toggle('show', window.scrollY > 600);
+        });
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        document.getElementById('contactForm')?.addEventListener('submit', e => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(e.target).entries());
+            document.getElementById('formNote').textContent = `Thanks, ${data.name}! We'll reply to ${data.email} soon.`;
+            e.target.reset();
+        });
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

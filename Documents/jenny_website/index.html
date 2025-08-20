@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Taste Journey</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    /* COLOR VARIABLES - LIGHT MODE (default) */
+    :root {
+      --bg-color: #fff0f6;
+      --text-color: #4b134f;
+      --header-bg: #ff85a2;
+      --header-text: #63004c;
+      --nav-bg: #d6336c;
+      --nav-link-color: #fff0f6;
+      --nav-link-hover-bg: #c61a4d;
+      --card-bg: #ffe3f1;
+      --card-shadow: rgba(214, 26, 77, 0.3);
+      --button-bg: #d6336c;
+      --button-hover-bg: #a4163a;
+      --footer-bg: #ff85a2;
+      --footer-text: #6a0a4e;
+      --input-border: #d6336c;
+      --form-message-color: #a4163a;
+      --focus-outline: 3px solid #a4163a;
+    }
+
+    /* DARK MODE OVERRIDES */
+    body.dark {
+      --bg-color: #1f1b2e;
+      --text-color: #d7c3d4;
+      --header-bg: #3c2a47;
+      --header-text: #e0c3fc;
+      --nav-bg: #3c2a47;
+      --nav-link-color: #d7c3d4;
+      --nav-link-hover-bg: #563d7c;
+      --card-bg: #2e2445;
+      --card-shadow: rgba(75, 61, 110, 0.5);
+      --button-bg: #563d7c;
+      --button-hover-bg: #754da3;
+      --footer-bg: #3c2a47;
+      --footer-text: #d7c3d4;
+      --input-border: #754da3;
+      --form-message-color: #b59edb;
+      --focus-outline: 3px solid #754da3;
+    }
+
+    /* RESET & BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding-bottom: 60px; /* space for footer */
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    nav a:focus-visible {
+      outline: var(--focus-outline);
+      outline-offset: 3px;
+    }
+
+    /* DARK MODE TOGGLE BUTTON */
+    #darkModeToggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: var(--nav-bg);
+      color: var(--nav-link-color);
+      border: none;
+      padding: 10px 14px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 1100;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #darkModeToggle:hover,
+    #darkModeToggle:focus-visible {
+      background-color: var(--button-hover-bg);
+      color: #fff;
+      outline-offset: 3px;
+    }
+
+    /* NAVBAR */
+    nav {
+      background-color: var(--nav-bg);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 20px;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px var(--card-shadow);
+      transition: background-color 0.3s ease;
+    }
+
+    nav a {
+      color: var(--nav-link-color);
+      font-size: 1rem;
+      padding: 6px 12px;
+      border-radius: 15px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background-color: var(--nav-link-hover-bg);
+      color: #fff;
+      outline-offset: 3px;
+    }
+
+    /* SECTIONS COMMON */
+    main section {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h1 {
+        font-family: 'Poppins';
+    }
+
+    section h1, section h2 {
+      color: var(--header-text);
+      margin-bottom: 10px;
+      text-align: center;
+      transition: color 0.3s ease;
+    }
+
+    section h1 {
+      font-size: 3rem;
+    }
+
+    section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+    }
+
+    /* HOME SECTION */
+    #home p {
+      max-width: 700px;
+      margin: 0 auto 15px;
+      font-size: 1.1rem;
+      text-align: center;
+      color: var(--text-color);
+      transition: color 0.3s ease;
+    }
+
+    /* PLACES SECTION */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 6px 20px var(--card-shadow);
+      overflow: hidden;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.3s ease;
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-5px) scale(1.01);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-body {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .card-body h3 {
+      font-size: 1.3rem;
+      color: var(--button-bg);
+      margin-bottom: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .card-body p {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      transition: color 0.3s ease;
+      /* Hide initially with aria-hidden */
+      display: none;
+    }
+
+    .card-body p[aria-hidden="false"] {
+      display: block;
+    }
+
+    .card-body button {
+      background-color: var(--button-bg);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      align-self: flex-start;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .card-body button:hover,
+    .card-body button:focus-visible {
+      background-color: var(--button-hover-bg);
+      transform: scale(1.05);
+      outline-offset: 3px;
+    }
+
+    /* ABOUT SECTION */
+    #about p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: var(--text-color);
+      line-height: 1.7;
+      text-align: center;
+      transition: color 0.3s ease;
+    }
+
+    /* CONTACT SECTION */
+    #contact form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    #contact label {
+      font-weight: 600;
+      color: var(--button-bg);
+      margin-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    #contact input,
+    #contact textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--input-border);
+      font-size: 1rem;
+      resize: vertical;
+      background-color: transparent;
+      color: var(--text-color);
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    #contact input::placeholder,
+    #contact textarea::placeholder {
+      color: var(--text-color);
+      opacity: 0.7;
+    }
+
+    #contact textarea {
+      min-height: 100px;
+    }
+
+    #contact button {
+      background-color: var(--button-bg);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #contact button:hover,
+    #contact button:focus-visible {
+      background-color: var(--button-hover-bg);
+      outline-offset: 3px;
+    }
+
+    /* FORM MESSAGE LABEL */
+    #form-message {
+      color: var(--form-message-color);
+      font-weight: 600;
+      text-align: center;
+      margin-top: 10px;
+      display: none;
+      transition: color 0.3s ease;
+    }
+
+    /* FOOTER */
+    footer {
+        background: var(--footer-bg);
+        color: var(--footer-text);
+        padding: 15px 20px;
+        margin-top: 60px;
+        font-size: 0.95rem;
+        border-top: 1px solid rgba(255,255,255,0.4);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 100;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav {
+        gap: 15px;
+      }
+      #darkModeToggle {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 1rem;
+      }
+      section h1 {
+        font-size: 2.2rem;
+      }
+      section h2 {
+        font-size: 1.8rem;
+      }
+      .card img {
+        height: 160px;
+      }
+    }
+
+    /* Lightbox Styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    .lightbox-controls {
+      margin-top: 15px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .lightbox-controls button {
+      background-color: var(--button-bg);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .lightbox-controls button:hover {
+      background-color: var(--button-hover-bg);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 2rem;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-controls button {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dark Mode Toggle -->
+  <button id="darkModeToggle" aria-pressed="false" aria-label="Toggle dark mode">
+    <i class='bx bx-moon'></i>
+  </button>
+
+  <!-- Navigation -->
+  <nav aria-label="Primary navigation">
+    <a href="#">Home</a>
+    <a href="#places">Places</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main>
+    <!-- HOME SECTION with title and subtitle moved here -->
+    <section id="home" aria-labelledby="home-title">
+      <h1 id="home-title">The Taste Journey</h1>
+      <p>Discover the world’s most delicious destinations</p>
+      <p>Welcome to The Taste Journey, your ultimate guide to the most delectable food experiences around the globe. Explore, taste, and enjoy!</p>
+    </section>
+
+    <!-- PLACES SECTION -->
+    <section id="places" aria-labelledby="places-title">
+      <h2 id="places-title">Top Places to Explore</h2>
+      <div class="cards">
+        <article class="card" tabindex="0">
+          <img src="images/image1-1.png" alt="image1-1" />
+          <br>
+          <img src="images/image1-2.png" alt="image1-2" />
+          <div class="card-body">
+            <h3>Buddy’s Restaurant - <br>📍Lucban, Quezon</h3>
+            <p aria-hidden="true">Buddy’s Restaurant is known for its hearty Filipino comfort food, featuring flavorful and colorful dishes inspired by the vibrant cuisine of Lucban, Quezon. Famous for its Pancit Lucban (pancit habhab), Buddy’s also serves deliciously grilled meats, rich stews, and local specialties, all served in a festive, homey atmosphere that feels like a celebration with every meal.</p>
+            <button aria-expanded="false" aria-controls="desc1">More info</button>
+          </div>
+        </article>
+        <article class="card" tabindex="0">
+          <img src="images/image2-1.png" alt="image2-1" />
+          <br>
+          <img src="images/image2-2.png" alt="image2-2" />
+          <div class="card-body">
+            <h3>Gumbo Restaurant - <br>📍Mandaluyong city</h3>
+            <p aria-hidden="true">Gumbo Restaurant serves up rich, soulful flavors inspired by the heart of Louisiana cuisine. Known for its signature gumbo—a hearty stew of tender meats, fresh seafood, and aromatic spices—every dish bursts with Cajun and Creole flair. From jambalaya to seafood platters, Gumbo Restaurant offers a warm, flavorful dining experience that feels like a taste of New Orleans in every bite.</p>
+            <button aria-expanded="false" aria-controls="desc2">More info</button>
+          </div>
+        </article>
+        <article class="card" tabindex="0">
+          <img src="images/image3-1.png" alt="image3-1" />
+          <br>
+          <img src="images/image3-2.png" alt="image3-2" />
+          <div class="card-body">
+            <h3>Marugame Restaurant - <br>📍Quezon city </h3>
+            <p aria-hidden="true">Marugame Restaurant specializes in freshly made, handcrafted Japanese udon noodles and tempura, served in a casual, open-kitchen style. Guests can watch the udon-making process, ensuring each bowl is perfectly chewy and flavorful, paired with savory broths and customizable toppings. With crisp, golden tempura and a variety of side dishes, Marugame offers an authentic, comforting taste of Japan in every meal.</p>
+            <button aria-expanded="false" aria-controls="desc3">More info</button>
+          </div>
+        </article>
+        <article class="card" tabindex="0">
+          <img src="images/image4-1.png" alt="image4-1" />
+          <br>
+          <img src="images/image4-2.png" alt="image4-2" />
+          <div class="card-body">
+            <h3>Ramen Nagi - <br>📍Makati city</h3>
+            <p aria-hidden="true">Ramen Nagi is famous for its bold, flavorful bowls of Japanese ramen, crafted with rich, slow-cooked broths and perfectly springy noodles. Each bowl is customizable, from the richness of the soup to the spice level, and features premium toppings like tender chashu pork, marinated eggs, and fresh vegetables. Known for its creative ramen varieties, Ramen Nagi delivers a hearty, satisfying experience that blends authentic tradition with exciting flavors.</p>
+            <button aria-expanded="false" aria-controls="desc3">More info</button>
+          </div>
+        </article>
+        <article class="card" tabindex="0">
+          <img src="images/image5-1.png" alt="image5-1" />
+          <br>
+          <img src="images/image5-2.png" alt="image5-2" />
+          <div class="card-body">
+            <h3>Shakey’s Restaurant - <br>📍Bangued, Abra</h3>
+            <p aria-hidden="true">Shakey’s Restaurant is a beloved spot for classic, crowd-pleasing comfort food, best known for its thin-crust pizzas loaded with flavorful toppings, golden fried chicken, and crispy Mojo potatoes. With its fun, family-friendly vibe and a menu perfect for sharing, Shakey’s serves up a delicious mix of savory, satisfying favorites that bring people together over every meal.</p>
+            <button aria-expanded="false" aria-controls="desc3">More info</button>
+          </div>
+        </article>
+        <article class="card" tabindex="0">
+          <img src="images/image6-1.png" alt="image6-1" />
+          <br>
+          <img src="images/image6-2.png" alt="image6-2" />
+          <div class="card-body">
+            <h3>Pizza Hut - <br>📍Pasay City</h3>
+            <p aria-hidden="true">Pizza Hut is a global favorite for its hot, cheesy pizzas topped with generous portions of fresh ingredients and served on signature crusts, from classic pan to stuffed and thin. Alongside its famous pizzas, the menu features flavorful pastas, wings, and sides, making it a go-to spot for hearty, satisfying meals perfect for sharing with family and friends.</p>
+            <button aria-expanded="false" aria-controls="desc3">More info</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" aria-labelledby="about-title">
+      <h2 id="about-title">About The Taste Journey</h2>
+      <p>We are dedicated to bringing you the best culinary experiences from around the world. Our team researches, tastes, and curates the top destinations for food lovers everywhere.</p>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact Us</h2>
+      <form id="contactForm" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required aria-required="true" placeholder="Your name" />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required aria-required="true" placeholder="your@email.com" />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required aria-required="true" placeholder="Write your message here"></textarea>
+
+        <button type="submit">Send Message</button>
+        <div id="form-message" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 The Taste Journey. All rights reserved.
+    <div class="social" aria-label="Social media links">
+      <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+      <a href="https://www.twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+      <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+    </div>
+  </footer>
+
+  <!-- IMAGE VIEWER MODAL -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+  <img id="lightbox-img" src="" alt="Preview" />
+  <p id="lightbox-desc" style="color: white; max-width: 90%; margin-top: 10px; text-align: center; font-size: 1rem;"></p>
+  <div class="lightbox-controls">
+    <button id="prevBtn">Previous</button>
+    <button id="nextBtn">Next</button>
+  </div>
+</div>
+
+<script>
+  // Dark Mode Toggle (unchanged)
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const body = document.body;
+  darkModeToggle.addEventListener('click', () => {
+    const isDark = body.classList.toggle('dark');
+    darkModeToggle.setAttribute('aria-pressed', isDark);
+    darkModeToggle.innerHTML = isDark ? "<i class='bx bx-sun'></i>" : "<i class='bx bx-moon'></i>";
+  });
+
+  // Expand/Collapse Card Info (unchanged)
+  document.querySelectorAll('.card-body button').forEach(button => {
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      const paragraph = button.previousElementSibling;
+      button.setAttribute('aria-expanded', !expanded);
+      paragraph.setAttribute('aria-hidden', expanded ? 'true' : 'false');
+      button.textContent = expanded ? 'More info' : 'Less info';
+    });
+  });
+
+  // Contact Form (unchanged)
+  const form = document.getElementById('contactForm');
+  const formMessage = document.getElementById('form-message');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+
+    if (!name || !email || !message) {
+      formMessage.style.color = 'var(--form-message-color)';
+      formMessage.textContent = 'Please fill out all fields.';
+      formMessage.style.display = 'block';
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      formMessage.style.color = 'var(--form-message-color)';
+      formMessage.textContent = 'Please enter a valid email address.';
+      formMessage.style.display = 'block';
+      return;
+    }
+
+    formMessage.style.color = 'green';
+    formMessage.textContent = 'Thank you for your message!';
+    formMessage.style.display = 'block';
+    form.reset();
+  });
+
+  // Animate Cards (unchanged)
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+  cards.forEach(card => observer.observe(card));
+
+  // IMAGE VIEWER WITH DESCRIPTION
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxDesc = document.getElementById('lightbox-desc');
+  const closeBtn = document.querySelector('.lightbox-close');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+
+  let currentIndex = 0;
+  const allImages = [];
+
+  // Get all image elements and related descriptions
+  document.querySelectorAll('.card').forEach((card, index) => {
+    const imgs = card.querySelectorAll('img');
+    const desc = card.querySelector('p').textContent;
+
+    imgs.forEach((img, imgIndex) => {
+      const globalIndex = allImages.length;
+      allImages.push({ src: img.src, desc: desc });
+
+      img.setAttribute('data-index', globalIndex);
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => {
+        currentIndex = globalIndex;
+        openLightbox();
+      });
+    });
+  });
+
+  function openLightbox() {
+    lightboxImg.src = allImages[currentIndex].src;
+    lightboxDesc.textContent = allImages[currentIndex].desc;
+    lightbox.style.display = 'flex';
+  }
+
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % allImages.length;
+    openLightbox();
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+    openLightbox();
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+  nextBtn.addEventListener('click', showNext);
+  prevBtn.addEventListener('click', showPrev);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') showNext();
+    if (e.key === 'ArrowLeft') showPrev();
+  });
+</script>
+</body>
+</html>
