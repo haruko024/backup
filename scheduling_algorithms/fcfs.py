@@ -1,143 +1,201 @@
-from typing import List, Dict, Tuple
+import tkinter as tk
+import threading
 
-def fcfs(processes: List[Dict], show_steps: bool = True) -> Dict:
-    """
-    FCFS scheduler with detailed stats + formulas.
-    Each process: {"pid": "P1", "AT": 0, "BT": 3}
-    """
-    # --- validation ---
-    for p in processes:
-        if p["AT"] < 0 or p["BT"] <= 0:
-            raise ValueError(f"Invalid times for {p['pid']}: AT>=0 and BT>0 required")
+def fcfs_scheduling(processes):
+    n = len(processes)
+    processes.sort(key=lambda x: x[1])  
 
-    # stable sort by arrival time
-    indexed = [(i, p["pid"], p["AT"], p["BT"]) for i, p in enumerate(processes)]
-    indexed.sort(key=lambda x: (x[2], x[0]))
-
-    # --- simulation ---
+    FT, WT, TAT, RT = [], [], [], []
+    gantt_chart = []
     time = 0
-    timeline: List[Tuple[str, int, int]] = []
-    rows = []
 
-    if show_steps:
-        print("== FCFS – Step by Step ==")
+    for x in range(n):
+        pid, at, bt = processes[x]
 
-    for _, pid, at, bt in indexed:
         if time < at:
-            if show_steps:
-                print(f"Time {time}–{at}: CPU IDLE")
-            timeline.append(("IDLE", time, at))
-            time = at
+            gantt_chart.append(("Idle", time, at))
+            time = at  
 
-        st = time                        # start time
-        ct = st + bt                     # completion time (finish time)
-        wt = st - at                     # waiting time
-        tat = ct - at                    # turnaround time
-        rt = st - at                     # response time (same as WT in FCFS)
+        rt = time  
+        ft = time + bt  
 
-        if show_steps:
-            print(f"\n{pid}:")
-            print(f"  ST  = max(previous CT, AT) = max({time}, {at}) = {st}")
-            print(f"  CT  = ST + BT = {st} + {bt} = {ct}")
-            print(f"  WT  = ST - AT = {st} - {at} = {wt}")
-            print(f"  TAT = CT - AT = {ct} - {at} = {tat}")
-            print(f"  RT  = ST - AT = {st} - {at} = {rt}")
+        tat = rt - at  
+        wt = ft - at  
 
-        rows.append({
-            "PID": pid, "AT": at, "BT": bt,
-            "ST": st, "CT": ct, "WT": wt, "TAT": tat, "RT": rt
-        })
-        timeline.append((pid, st, ct))
-        time = ct
+        FT.append(ft)
+        RT.append(rt)
+        TAT.append(tat)
+        WT.append(wt)
 
-    # --- aggregates ---
-    n = len(rows)
-    tbt = sum(r["BT"] for r in rows)                    # total burst time (busy time)
-    tft = timeline[-1][2] if timeline else 0            # finish time (makespan = last CT)
-    busy_time = sum(e - s for (lab, s, e) in timeline if lab != "IDLE")
-    cpu_util = (busy_time / tft * 100) if tft > 0 else 0
-    throughput = (n / tft) if tft > 0 else 0
+        gantt_chart.append((f"P{pid}", time, ft))
+        time = ft 
 
-    avg_wt = sum(r["WT"] for r in rows) / n
-    avg_tat = sum(r["TAT"] for r in rows) / n
+    TBT = sum([p[2] for p in processes])
+    TFT = FT[-1]
+    AWT = sum(WT) / n
+    ATAT = sum(TAT) / n
+    CPU_UTIL = (TBT / TFT) * 100
+    THROUGHPUT = n / TFT  
+    THP = THROUGHPUT * 100
+    print("\nPID | AT | BT | FT | WT | RT | TAT")
 
-    # --- queue order ---
-    order = [pid for (_, pid, _, _) in indexed]
-    print("\n== Ready Queue Order by Arrival ==")
-    print(" → ".join(order))
+    combined = []
+    for i in range(n):
+        combined.append((
+            processes[i][0],  # PID
+            processes[i][1],  # AT
+            processes[i][2],  # BT
+            FT[i],
+            WT[i],
+            RT[i],
+            TAT[i]
+        ))
 
-    # --- Gantt chart ---
-    print("\n== Gantt Chart ==")
-    def seg_w(a, b): return max(1, int(round(b - a)))
-    top = mid = bot = ""
-    for label, s, e in timeline:
-        w = seg_w(s, e)
-        top += "+" + "-" * w
-        mid += "|" + label.center(w)
-        bot += "+" + "-" * w
-    top += "+\n"; mid += "|\n"; bot += "+"
-    times_line = []
-    for i, (_, s, e) in enumerate(timeline):
-        if i == 0: times_line.append(str(s))
-        times_line.append(str(e))
-    print(top + mid + bot)
-    print(" ".join(t for t in times_line) + " -> Total Finish Time (TFT)")
+    combined.sort(key=lambda x: x[0])
 
+    for entry in combined:
+        print(f"{entry[0]:3} | {entry[1]:2} | {entry[2]:2} | {entry[3]:2} | {entry[4]:2} | {entry[5]:2} | {entry[6]:2}")
+
+
+    # print("\nPID | AT | BT | FT | WT | RT | TAT")
+    # for i in range(n):
+    #     print(f"{processes[i][0]:3} | {processes[i][1]:2} | {processes[i][2]:2} | {FT[i]:2} | {WT[i]:2} | {RT[i]:2} | {TAT[i]:2}")
+    print("")
+    print("="*50)
+    print(f"Number of Process = {n}")
+    print(f"Waiting Time (WT) = FT - AT")
+    print(f"Turn Around Time (TAT) = RT - AT")
+    print("-"*40)
+    print(f"Total Burst Time (TBT) = {TBT}     # Sum of BT")
+    print(f"Total Finish Time (TFT) = {TFT}    # Last FT")
+    print("-"*40)
+    print(f"Average Turnaround Time (ATAT) = sum(TAT) / #process = {sum(TAT)} / {n} = {ATAT:.2f}")
+    print(f"Average Waiting Time (AWT) = sum(WT) / #process = {sum(WT)} / {n} = {AWT:.2f}")
+    print(f"CPU Utilization = (TBT / TFT)* 100 = ({TBT} / {TFT}) * 100 = {CPU_UTIL:.2f}%")
+    print(f"Throughput = #process / TFT = {n} / {TFT} = {THROUGHPUT:.4f} or {THP:.2f}%")
+    print("="*50)
+    print("MASAYA KANA BOI?")
+
+    root = tk.Tk()
+    root.title("FCFS Scheduling - Gantt Chart")
+
+    width = 1300
+    height = 120
+    scale = width // (TFT +1) 
+
+    canvas = tk.Canvas(root, height=height, width=width, bg="white")
+    canvas.pack(fill="both", expand=True)
+
+    x_start = 20
+
+    for task in gantt_chart:
+        label, start, end = task
+        x1 = x_start + start * scale
+        x2 = x_start + end * scale
+        canvas.create_rectangle(x1, 30, x2, 70, fill="skyblue", outline="black")
+        canvas.create_text((x1 + x2) // 2, 50, text=label)
+        canvas.create_text(x1, 75, text=str(start))
+    canvas.create_text(x2, 75, text=str(end))
+
+    threading.Thread(target=show_summary_table, args=(processes, FT, WT, RT, TAT, AWT, ATAT,)).start()
+    root.mainloop()
+    
+def show_summary_table(processes, FT, WT, RT, TAT, AWT, ATAT):
+    root = tk.Toplevel()
+    root.title("FCFS Summary Table")
+
+    headers = ["PID", "FT", "AT", "WT", "RT", "AT", "TAT"]
+    for col, h in enumerate(headers):
+        label = tk.Label(root, text=h, font=("Arial", 12, "bold"), borderwidth=2, relief="groove", bg="lightgray")
+        label.grid(row=0, column=col, sticky="nsew")
+
+    n = len(processes)
+
+    combined = []
+    for i in range(n):
+        pid = processes[i][0]
+        at = processes[i][1]
+        bt = processes[i][2]
+        ft = FT[i]
+        wt = WT[i]
+        rt = RT[i]
+        tat = TAT[i]
+        combined.append((pid, ft, at, wt, rt, at, tat))
+
+    combined.sort(key=lambda x: x[0])  # Sort by PID
+
+    for row, entry in enumerate(combined, start=1):
+        for col, value in enumerate(entry):
+            tk.Label(root, text=str(value), borderwidth=2, relief="groove").grid(row=row, column=col, sticky="nsew")
+
+    # Show AWT and ATAT
+    tk.Label(root, text="AWT", font=("Arial", 12, "bold"), bg="yellow", borderwidth=2, relief="groove").grid(row=n+1, column=4, sticky="nsew")
+    tk.Label(root, text=f"{AWT:.1f}", font=("Arial", 12), bg="yellow", borderwidth=2, relief="groove").grid(row=n+1, column=5, sticky="nsew")
+
+    tk.Label(root, text="ATAT", font=("Arial", 12, "bold"), bg="yellow", borderwidth=2, relief="groove").grid(row=n+2, column=4, sticky="nsew")
+    tk.Label(root, text=f"{ATAT:.1f}", font=("Arial", 12), bg="yellow", borderwidth=2, relief="groove").grid(row=n+2, column=5, sticky="nsew")
+
+def show_process_table(processes):
+    root = tk.Tk()
+    root.title("Process Queue")
+
+    at_label = tk.Label(root, text="AT", font=("Arial", 12, "bold"), borderwidth=2, relief="groove")
+    at_label.grid(row=0, column=0, sticky="nsew")
+
+    bt_label = tk.Label(root, text="BT", font=("Arial", 12, "bold"), borderwidth=2, relief="groove")
+    bt_label.grid(row=2, column=0, sticky="nsew")
+
+    arrival_times = [p[1] for p in processes]
+    burst_times = [p[2] for p in processes]
+
+    processes_sorted = sorted(processes, key=lambda x: x[1])
+
+    for idx, (pid, at, bt) in enumerate(processes_sorted, start=1):
+        p_label = tk.Label(root, text=f"P{pid}", font=("Arial", 12), borderwidth=2, relief="groove")
+        p_label.grid(row=1, column=idx, sticky="nsew")
+
+        at_time_label = tk.Label(root, text=str(at), font=("Arial", 12), borderwidth=2, relief="groove")
+        at_time_label.grid(row=0, column=idx, sticky="nsew")
+
+        bt_time_label = tk.Label(root, text=str(bt), font=("Arial", 12), borderwidth=2, relief="groove")
+        bt_time_label.grid(row=2, column=idx, sticky="nsew")
+
+    root.mainloop()
+    
+
+def main():
     print("""
-Arrival Time (AT)            Burst Time (BT)
-Completion Time (CT)         Waiting Time (WT)            
-Turnaround Time (TAT)        Response Time (RT)         
-Total Finish Time (TFT)      Total Burst Time (TBT)    
-N = Number of Processes
-    """)
+                                                        ███████╗ ██████╗███████╗███████╗
+First Come First Serve (FCFS) Scheduling Algorithms     ██╔════╝██╔════╝██╔════╝██╔════╝    
+            August 21, 2025                             █████╗  ██║     █████╗  ███████╗         
+        Code by Paul Mendoza                            ██╔══╝  ██║     ██╔══╝  ╚════██║
+                                                        ██║     ╚██████╗██║     ███████║
+                                                        ╚═╝      ╚═════╝╚═╝     ╚══════╝
+""")
+    question = input("Pogi ba si Fafa Paul [Y/n]: ")
+    if question == "Y".lower():
+        threading.Thread(target=fcfs_scheduling, args=(processes,)).start()
+        threading.Thread(target=show_process_table, args=(processes,)).start()
+    else:
+        print("Bahala ka! walang sagot!.")
 
-    # --- table ---
-    print("\n== Results ==")
-    header = f"{'PID':<5}{'AT':>5}{'BT':>5}{'CT':>6}{'RT':>6}{'TAT':>7}{'WT':>6}"
-    print(header); print("-" * len(header))
-    for r in rows:
-        print(f"{r['PID']:<5}{r['AT']:>5}{r['BT']:>5}{r['CT']:>6}{r['RT']:>6}{r['TAT']:>7}{r['WT']:>6}")
-    print("-" * len(header))
+processes = []
+file = open("config.txt","r").read().split("<cut>")
+num_processes = int(file[0].split("=")[1].strip())
+proc = file[1].strip().splitlines()
+for idx, x in enumerate(proc):
+    parts = x.strip().split()
+    at, bt = int(parts[0]), int(parts[1])
+    processes.append((idx + 1, at, bt))
 
-    # --- formulas + answers ---
-    print("\n== Formulas & Final Results ==")
-    print(f"AWT  = ΣWT / N  = {sum(r['WT'] for r in rows)} / {n} = {avg_wt:.2f}")
-    print(f"ATAT = ΣTAT / N = {sum(r['TAT'] for r in rows)} / {n} = {avg_tat:.2f}")
-    print(f"TBT  = ΣBT      = {tbt}")
-    print(f"TFT  = last CT  = {tft}")
-    print(f"CPU Utilization = Busy / TFT * 100 = {busy_time}/{tft} * 100 = {cpu_util:.2f}%")
-    print(f"Throughput = N / TFT = {n}/{tft} = {throughput:.4f}")
-
-    print("\n===========================================================")
-    print("           Programmed By : Paul Mendoza")
-    print("===========================================================\n")
-
-    return {
-        "table": rows,
-        "avg_wt": avg_wt,
-        "avg_tat": avg_tat,
-        "timeline": timeline,
-        "TBT": tbt,
-        "TFT": tft,
-        "cpu_utilization_pct": cpu_util,
-        "throughput": throughput,
-        "order": order,
-    }
+# num_processes = int(input("Enter number of processes: "))
+# for i in range(1, num_processes + 1):
+#     at = int(input(f"Enter Arrival Time of P{i}: "))
+#     bt = int(input(f"Enter Burst Time of P{i}: "))
+#     processes.append((i, at, bt))
 
 
 if __name__ == "__main__":
-    # ----- interactive input -----
-    print("""
-===========================================================
-   First Come, First Serve (FCFS) Scheduling Algorithm
-   With Step-by-Step Computation, Gantt Chart & Metrics
-   Code By : Paul Mendoza
-===========================================================
-""")
-    n = int(input("Enter number of processes: "))
-    processes = []
-    for i in range(n):
-        at = int(input(f"Enter Arrival Time (AT) for P{i+1}: "))
-        bt = int(input(f"Enter Burst Time (BT) for P{i+1}: "))
-        processes.append({"pid": f"P{i+1}", "AT": at, "BT": bt})
-    fcfs(processes)
+    main()
+    
+    
