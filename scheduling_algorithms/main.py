@@ -1,5 +1,7 @@
 import tkinter as tk
 import threading
+import time
+
 
 def fcfs_scheduling(processes):
     n = len(processes)
@@ -163,28 +165,40 @@ def show_process_table(processes):
     root.mainloop()
     
 
-def main():
+def main1(processes):
     print("""
                                                         ███████╗ ██████╗███████╗███████╗
 First Come First Serve (FCFS) Scheduling Algorithms     ██╔════╝██╔════╝██╔════╝██╔════╝    
             August 21, 2025                             █████╗  ██║     █████╗  ███████╗         
         Code by Paul Mendoza                            ██╔══╝  ██║     ██╔══╝  ╚════██║                                                                            ██║     ╚██████╗██║     ███████║                                                                            ╚═╝      ╚═════╝╚═╝     ╚══════╝
+                v1.0
 """)
     question = input("Pogi ba si Fafa Paul [Y/n]: ")
-    if question == "Y".lower():
+    if question.lower() == "y":
         threading.Thread(target=fcfs_scheduling, args=(processes,)).start()
         threading.Thread(target=show_process_table, args=(processes,)).start()
     else:
         print("Bahala ka! walang sagot!.")
 
-processes = []
-file = open("config.txt","r").read().split("<cut>")
-num_processes = int(file[0].split("=")[1].strip())
-proc = file[1].strip().splitlines()
-for idx, x in enumerate(proc):
-    parts = x.strip().split()
-    at, bt = int(parts[0]), int(parts[1])
-    processes.append((idx + 1, at, bt))
+def main():
+    err = False
+    processes = []
+    file = open("config.txt","r").read().split("<cut>")
+    num_processes = int(file[0].split("=")[1].strip())
+    proc = file[1].strip().splitlines()
+    for idx, x in enumerate(proc):
+        if num_processes != len(proc):
+            err = True
+            print("Error: Number of processes is not equal to number of lines!. Check the (config.txt)")
+            print("Exiting..")
+            time.sleep(5)
+            break
+        else:
+            parts = x.strip().split()
+            at, bt = int(parts[0]), int(parts[1])
+            processes.append((idx + 1, at, bt))
+    if not err == True:
+        main1(processes)
 
 # num_processes = int(input("Enter number of processes: "))
 # for i in range(1, num_processes + 1):
