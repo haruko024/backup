@@ -44,7 +44,7 @@ def fcfs():
         AWT = sum(WT) / n
         ATAT = sum(TAT) / n
         CPU_UTIL = (TBT / TFT) * 100
-        THROUGHPUT = n / TFT  
+        THROUGHPUT = n / TBT  
         THP = THROUGHPUT * 100
         print("\nPID | AT | BT | FT | WT | RT | TAT")
 
@@ -70,19 +70,19 @@ def fcfs():
         # for i in range(n):
         #     print(f"{processes[i][0]:3} | {processes[i][1]:2} | {processes[i][2]:2} | {FT[i]:2} | {WT[i]:2} | {RT[i]:2} | {TAT[i]:2}")
         print("")
-        print("="*50)
+        print("="*100)
         print(f"Number of Process = {n}")
         print(f"Waiting Time (WT) = FT - AT")
         print(f"Turn Around Time (TAT) = RT - AT")
-        print("-"*40)
+        print("-"*80)
         print(f"Total Burst Time (TBT) = {TBT}     # Sum of BT")
         print(f"Total Finish Time (TFT) = {TFT}    # Last FT")
-        print("-"*40)
-        print(f"Average Turnaround Time (ATAT) = sum(TAT) / #process = {sum(TAT)} / {n} = {ATAT:.2f}")
-        print(f"Average Waiting Time (AWT) = sum(WT) / #process = {sum(WT)} / {n} = {AWT:.2f}")
-        print(f"CPU Utilization = (TBT / TFT)* 100 = ({TBT} / {TFT}) * 100 = {CPU_UTIL:.2f}%")
-        print(f"Throughput = #process / TFT = {n} / {TFT} = {THROUGHPUT:.4f} or {THP:.2f}%")
-        print("="*50)
+        print("-"*80)
+        print(f"Average Turnaround Time (ATAT) = sum(TAT) / #process = \t\t{sum(TAT)} / {n} = {ATAT:.2f}")
+        print(f"Average Waiting Time (AWT) = sum(WT) / #process = \t\t{sum(WT)} / {n} = {AWT:.2f}")
+        print(f"CPU Utilization = (TBT / TFT)* 100 = \t\t\t\t({TBT} / {TFT}) * 100 = {CPU_UTIL:.2f}%")
+        print(f"Throughput = #process / TBT = \t\t\t\t\t{n} / {TBT} = {THROUGHPUT:.4f} or {THP:.2f}%")
+        print("="*100)
         print("MASAYA KANA BOI?")
 
         root = tk.Tk()
@@ -259,7 +259,7 @@ def mqs():
 
 def main():
     while True:
-        print("\n--- SCHEDULING ALGORITMS ---")
+        print("\n--- SCHEDULING ALGORITMS v1.0---")
         print("Options:")
         print("[1] First Come First Serve")
         print("[2] Priority Scheduling")
