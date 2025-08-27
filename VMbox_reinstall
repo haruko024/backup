@@ -5,3 +5,13 @@ sudo modprobe vboxnetflt
 sudo modprobe vboxnetadp
 
 lsmod | grep vbox
+
+
+sudo apt install linux-headers-$(uname -r)
+sudo apt install linux-headers-6.12.38+kali-amd64
+
+
+sudo dkms remove virtualbox/7.1.12 --all
+sudo dkms add -m virtualbox -v 7.1.12
+sudo dkms build -m virtualbox -v 7.1.12
+sudo dkms install -m virtualbox -v 7.1.12

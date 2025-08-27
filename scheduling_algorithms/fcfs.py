@@ -78,7 +78,10 @@ def fcfs_scheduling(processes):
 
     root = tk.Tk()
     root.title("FCFS Scheduling - Gantt Chart")
-    root.iconbitmap("assets/icon.ico")
+    try:
+        root.iconbitmap("assets/icon.ico")
+    except:
+        pass 
 
     width = 1300
     height = 120
@@ -104,7 +107,10 @@ def fcfs_scheduling(processes):
 def show_summary_table(processes, FT, WT, RT, TAT, AWT, ATAT):
     root = tk.Toplevel()
     root.title("FCFS Summary Table")
-    root.iconbitmap("assets/icon.ico")
+    try:
+        root.iconbitmap("assets/icon.ico")
+    except:
+        pass 
 
     headers = ["PID", "FT", "AT", "WT", "RT", "AT", "TAT"]
     for col, h in enumerate(headers):
@@ -140,7 +146,10 @@ def show_summary_table(processes, FT, WT, RT, TAT, AWT, ATAT):
 def show_process_table(processes):
     root = tk.Tk()
     root.title("Process Queue")
-    root.iconbitmap("assets/icon.ico")
+    try:
+        root.iconbitmap("assets/icon.ico")
+    except:
+        pass 
 
     at_label = tk.Label(root, text="AT", font=("Arial", 12, "bold"), borderwidth=2, relief="groove")
     at_label.grid(row=0, column=0, sticky="nsew")

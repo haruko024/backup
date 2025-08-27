@@ -39,7 +39,7 @@ def fcfs_scheduling(processes):
     CPU_UTIL = (TBT / TFT) * 100
     THROUGHPUT = n / TFT  
     THP = THROUGHPUT * 100
-    print("\nPID | AT | BT | FT | WT | RT | TAT")
+    print("\nPID | AT  | BT  | FT  | WT  | RT  | TAT")
 
     combined = []
     for i in range(n):
@@ -56,7 +56,7 @@ def fcfs_scheduling(processes):
     combined.sort(key=lambda x: x[0])
 
     for entry in combined:
-        print(f"{entry[0]:3} | {entry[1]:2} | {entry[2]:2} | {entry[3]:2} | {entry[4]:2} | {entry[5]:2} | {entry[6]:2}")
+        print(f"{entry[0]:3} | {entry[1]:3} | {entry[2]:3} | {entry[3]:3} | {entry[4]:3} | {entry[5]:3} | {entry[6]:3}")
 
 
     # print("\nPID | AT | BT | FT | WT | RT | TAT")
@@ -165,21 +165,6 @@ def show_process_table(processes):
     root.mainloop()
     
 
-def main1(processes):
-    print("""
-                                                        ███████╗ ██████╗███████╗███████╗
-First Come First Serve (FCFS) Scheduling Algorithms     ██╔════╝██╔════╝██╔════╝██╔════╝    
-            August 21, 2025                             █████╗  ██║     █████╗  ███████╗         
-        Code by Paul Mendoza                            ██╔══╝  ██║     ██╔══╝  ╚════██║                                                                            ██║     ╚██████╗██║     ███████║                                                                            ╚═╝      ╚═════╝╚═╝     ╚══════╝
-                v1.0
-""")
-    question = input("Pogi ba si Fafa Paul [Y/n]: ")
-    if question.lower() == "y":
-        threading.Thread(target=fcfs_scheduling, args=(processes,)).start()
-        threading.Thread(target=show_process_table, args=(processes,)).start()
-    else:
-        print("Bahala ka! walang sagot!.")
-
 def main():
     err = False
     processes = []
@@ -198,7 +183,8 @@ def main():
             at, bt = int(parts[0]), int(parts[1])
             processes.append((idx + 1, at, bt))
     if not err == True:
-        main1(processes)
+        threading.Thread(target=fcfs_scheduling, args=(processes,)).start()
+        threading.Thread(target=show_process_table, args=(processes,)).start()
 
 # num_processes = int(input("Enter number of processes: "))
 # for i in range(1, num_processes + 1):
