@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A Web-Based Secure File Management System</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <marquee direction="left" behavior="scroll" scrollamount="5">
+        <b
+          >🤎 Developed by Niño Paul Mendoza 🤎 Please email for concern:
+          securefilemanagementsystem@gmail.com 💌</b
+        >
+      </marquee>
+      <h1>A Web-Based Secure File Management System</h1>
+
+      <!-- Auth Section -->
+      <section class="card" id="auth">
+        <h2>Register / Login</h2>
+        <input id="username" type="text" placeholder="Username" />
+        <input id="email" type="email" placeholder="Email" />
+        <input id="password" type="password" placeholder="Password" />
+        <div class="row">
+          <button id="btnRegister">Register</button>
+          <button id="btnLogin">Login</button>
+        </div>
+
+        <!-- OTP Verification -->
+        <div id="otpSection" style="display: none; margin-top: 10px">
+          <input id="otpInput" placeholder="Enter OTP" />
+          <button id="btnVerifyOtp">Verify OTP</button>
+        </div>
+
+        <div id="authMsg" class="msg"></div>
+      </section>
+
+      <!-- Upload Section -->
+      <section class="card" id="uploader" style="display: none">
+        <h2>Upload File</h2>
+        <input type="file" id="fileInput" />
+        <div class="row">
+          <button id="btnUpload">Upload</button>
+          <button id="btnLogout">Logout</button>
+        </div>
+        <div id="uploadMsg" class="msg"></div>
+      </section>
+
+      <!-- QR Code Login -->
+      <section class="card" id="qrLogin">
+        <h2>Login via QR Code</h2>
+        <input id="qrFileInput" type="file" accept="image/*" />
+        <button id="btnQrLogin">Login with QR</button>
+        <div id="qrLoginMsg" class="msg"></div>
+      </section>
+
+      <!-- File List -->
+      <section class="card" id="files" style="display: none">
+        <h2>Your Files</h2>
+        <ul id="fileList"></ul>
+      </section>
+
+      <!-- QRCode Display -->
+      <section class="card" id="qrDisplay" style="display: none">
+        <h2>Your QR Code for Login</h2>
+        <p>Scan this QR code to log in quickly next time!</p>
+        <div
+          id="userQRCode"
+          style="display: flex; justify-content: center; margin: 20px 0"
+        ></div>
+        <div style="text-align: center">
+          <button id="btnDownloadUserQR">Download QR Code</button>
+        </div>
+      </section>
+
+      <footer>
+        <small>© 2025 Paul Mendoza. All rights reserved.</small>
+      </footer>
+    </main>
+
+    <!-- QRCode + jsQR -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
