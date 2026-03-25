@@ -1,5 +1,5 @@
 {
     "name":"Paul",
     "code": 123,
-    "lang":"Python"
+    "lang": ["python","javascript"]
 }
